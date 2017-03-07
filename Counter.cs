@@ -1,6 +1,13 @@
 ﻿namespace Counter
 {
-  public class Counter<T> where T : ICountable
+  public interface ICounter<in T> where T : ICountable
+  {
+    void Add(T item);
+
+    int Count { get; }
+  }
+
+  public class Counter<T> : ICounter<T> where T : ICountable
   {
     private int count;
 

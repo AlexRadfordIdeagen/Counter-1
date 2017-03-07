@@ -35,6 +35,20 @@ namespace Counter
 
       Console.WriteLine(anythingCounter.Count); // Should be 5 - sum of the above
 
+      // Demonstration of contravariance
+      ICounter<Apple> contravariantCounter = anythingCounter;
+
+      contravariantCounter.Add(new Apple());
+      Console.WriteLine(contravariantCounter.Count); // Should be 6 - we added an extra thing to it
+
+      // Lack of demonstration of covariance
+      /* Will not compile
+      ICounter<ICountable> covariantCounter = appleCounter;
+
+      covariantCounter.Add(new Cart<Apple>());
+      Console.WriteLine(covariantCounter.Count); // Would be 3, because the cart is empty. But still, we can't add carts to this counter!
+      */
+
       Console.ReadLine();
     }
   }
