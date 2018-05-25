@@ -1,14 +1,30 @@
-﻿namespace Counter
+﻿using System;
+
+namespace Counter
 {
-  public class Counter<T> where T : ICountable
-  {
-    private int count;
-
-    public void Add(T item)
+    public class Counter<T> where T : ICountable
     {
-      count += item.Count;
-    }
+        private int count;
+     Func<T, bool> countFilter;
 
-    public int Count => count;
-  }
+        public Counter(Func<T, bool> countFilter)
+        {
+            this.countFilter = countFilter;
+        }
+
+        public Counter() : this(thing => true)
+        {
+
+        }
+        public void Add(T item)
+        {
+            if (countFilter(item))
+            {
+                count += item.Count;
+            }
+        }
+
+        public int Count => count;
+
+    }
 }
